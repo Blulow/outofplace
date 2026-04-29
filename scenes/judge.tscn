@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://bj413ta5cfw8s"]
+
+[ext_resource type="Script" uid="uid://cgd2bbs07i8l2" path="res://scripts/judge.gd" id="1_6qmai"]
+[ext_resource type="Texture2D" uid="uid://doflp4ohug3pa" path="res://assets/images/judgement_ring.png" id="2_ax7an"]
+[ext_resource type="Texture2D" uid="uid://08nmmlgemm44" path="res://assets/images/judge.png" id="2_yuegn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ax7an"]
+radius = 12.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cskas"]
+atlas = ExtResource("2_yuegn")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyf83"]
+atlas = ExtResource("2_yuegn")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aifhk"]
+atlas = ExtResource("2_yuegn")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4qhy"]
+atlas = ExtResource("2_yuegn")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68hlu"]
+atlas = ExtResource("2_yuegn")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8p0j3"]
+atlas = ExtResource("2_yuegn")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7dx64"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cskas")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyf83")
+}],
+"loop": false,
+"name": &"punch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aifhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4qhy")
+}],
+"loop": false,
+"name": &"slap_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68hlu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8p0j3")
+}],
+"loop": false,
+"name": &"slap_right",
+"speed": 10.0
+}]
+
+[node name="Judge" type="Area2D" unique_id=842157244]
+script = ExtResource("1_6qmai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1676195403]
+shape = SubResource("CircleShape2D_ax7an")
+
+[node name="JudgementRing" type="Sprite2D" parent="." unique_id=1374265240]
+texture = ExtResource("2_ax7an")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1339721274]
+position = Vector2(-8, 0)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_7dx64")
+autoplay = "default"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
